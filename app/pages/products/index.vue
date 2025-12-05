@@ -70,7 +70,7 @@ const filterItems = async () => {
 <template>
     <UPage>
         <UPageHeader>
-            <UContainer class="flex w-full max-w-full col-span-3 gap-3 !p-0 !m-0 justify-between ">
+            <UContainer class="flex w-full max-w-full col-span-3 gap-3 p-0! m-0! justify-between ">
                 <UForm class="w-1/2" @submit="filterItems">
                     <UFieldGroup class="flex w-full">
                         <UInput type="search" placeholder="Search" class="flex-grow" color="primary" size="lg" v-model="filters.search" />
@@ -78,11 +78,11 @@ const filterItems = async () => {
                     </UFieldGroup>
                 </UForm>
 
-                <UContainer class="flex w-fit justify-end items-center gap-3 !p-0 !m-0">
+                <UContainer class="flex w-fit justify-end items-center gap-3 p-0! m-0!">
                     <UModal title="New Product">
                         <UButton label="Add Product" />
                         <template #body>
-                            <UContainer class="w-full !m-0 !p-0">
+                            <UContainer class="w-full m-0! p-0!">
                                 <UForm id="create-product-form" @submit="createItem">
                                     <UFormField label="Product">
                                         <UInput v-model="newItem.name" placeholder="Enter Name" class="w-full" />
@@ -98,7 +98,7 @@ const filterItems = async () => {
                         </template>
 
                         <template #footer>
-                            <UContainer class="w-full flex justify-end !m-0 !p-0">
+                            <UContainer class="w-full flex justify-end m-0! p-0!">
                                 <UButton label="Create" type="submit" form="create-product-form" />
                             </UContainer>
 
@@ -114,17 +114,22 @@ const filterItems = async () => {
 
         <UPageBody>
             <UPageGrid>
-                <UPageCard v-for="product in products" variant="soft" :key="product.id" class="col-span-1" >
+                <UCard v-for="product in products" variant="soft" :key="product.id" class="col-span-1" >
                     <template #header>
-                        <UContainer class="grid grid-cols-4 w-full justify-between items-center !p-0 !m-0">
+                        <UContainer class="grid grid-cols-4 w-full justify-between items-center p-0! m-0!">
                             <div class="col-span-2 flex flex-col">
                                 <h5 class="font-semibold truncate w-full">{{ product.name }}</h5>
                                 
                             </div>
                             <div></div>
-                            <UContainer class="flex flex-row col-span-1 gap-3 !p-0 !m-0 justify-end">
-                                <UButton  icon="i-fa-edit" color="primary" to="/products/{{product.id}}" class="flex-shrink-0 place-items-center"  />
-                                <UModal title="Edit Product">
+                            <h6 class="text-muted text-end">{{ product.category }}</h6>
+                            
+                        </UContainer>
+                    </template>
+                    <template #footer>
+                        <UContainer class="w-full m-0! p-0! flex justify-between items-center">
+                            <h5 class="text-muted">${{ product.price }}</h5>
+                            <UContainer class="flex flex-row col-span-1 gap-3 p-0! m-0! justify-end">                                <UModal title="Edit Product">
                                     <UButton  icon="i-fa-edit" color="primary" class="flex-shrink-0 place-items-center"  />
                                     <template #body>
                                         <UForm id="create-product-form"
@@ -145,7 +150,7 @@ const filterItems = async () => {
                                     </template>
 
                                     <template #footer>
-                                        <UContainer class="w-full flex justify-end !m-0 !p-0">
+                                        <UContainer class="w-full flex justify-end m-0! p-0!">
                                             <UButton label="Save" type="submit" form="create-product-form" />
                                         </UContainer>
 
@@ -161,7 +166,7 @@ const filterItems = async () => {
                                     </template>
 
                                     <template #footer>
-                                        <UContainer class="w-full flex justify-end !m-0 !p-0">
+                                        <UContainer class="w-full flex justify-end m-0! p-0!">
                                             <UButton label="Delete" color="error" type="submit" form="delete-product-form" />
                                         </UContainer>
                                     </template>
@@ -169,13 +174,7 @@ const filterItems = async () => {
                             </UContainer>
                         </UContainer>
                     </template>
-                    <template #footer>
-                        <UContainer class="w-full !m-0 !p-0 flex justify-between items-center">
-                            <h6 class="font-semibold">${{ product.price }}</h6>
-                            <h6>{{ product.category }}</h6>
-                        </UContainer>
-                    </template>
-                </UPageCard>
+                </UCard>
             </UPageGrid>
         </UPageBody>
     </UPage>

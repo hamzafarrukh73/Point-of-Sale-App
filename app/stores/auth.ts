@@ -17,12 +17,7 @@ export const useAuthStore = defineStore('authStore', {
     
     },
     actions: {
-        async login(name: string, password: string, navigate: boolean, navigatePath="/dashboard" as string) {
-            toast.add({
-                title: 'Logging in...',
-                color: 'info'
-            });
-        
+        async login(name: string, password: string, navigate: boolean, navigatePath="/dashboard" as string) {     
             try {
                 const response = await $fetch('http://127.0.0.1:8000/api/auth/login/', {
                     method: 'POST',
@@ -33,13 +28,16 @@ export const useAuthStore = defineStore('authStore', {
                 });
         
                 // This block runs only if the request is successful (status code 2xx)
-                if (response.token) {
+                if (response) {
                     localStorage.setItem('authToken', response.token);
-                    if (navigate) {
-                        navigateTo(navigatePath, { replace: true });
-                    }
                 }
-        
+                if (navigate) {
+                    toast.add({
+                        title: 'Logging in...',
+                        color: 'info'
+                    });
+                    navigateTo({ path: navigatePath });
+                }
             } 
             catch (error) {
                 toast.add({

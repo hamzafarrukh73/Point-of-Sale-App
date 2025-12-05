@@ -3,13 +3,10 @@ definePageMeta({
     layout: 'dash'
 })
 
-const route = useRoute();
-
 </script>
 
 <template>
     <UPage>
-        <UPageHeader tilte="route">
-        </UPageHeader>
+        <UPageHeader title="route" />
     </UPage>
 </template>

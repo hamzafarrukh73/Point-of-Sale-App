@@ -83,9 +83,9 @@ const sorting = ref([
 
         <UPageBody>
             <UPageGrid>
-                <BarChart class="bg-elevated/50 ring ring-default rounded p-5 col-span-1 md:col-span-2"
+                <!-- <BarChart class="bg-elevated/50 ring ring-default rounded p-5 col-span-1 md:col-span-2"
                     :data="RevenueData" :categories="RevenueCategories" :y-axis="['desktop']" y-label="Amount"
-                    x-label="Month" :hide-legend="false" :legend-position="LegendPosition.Top" />
+                    x-label="Month" :hide-legend="false" :legend-position="LegendPosition.Top" /> -->
                 <UTable :data="tableData" v-model:sorting="sorting" sticky="true"
                     class="bg-elevated/50 ring ring-default rounded col-span-1" />
             </UPageGrid>
