@@ -61,9 +61,21 @@ const sortItems = async () => {
 
 const filters = ref({
     search: '',
+    category: '',
+    min_price: '',
+    max_price: '',
 })
 const filterItems = async () => {
+    if (filters.value.category === 'All') {
+        filters.value.category = '';
+    }
+    if (filters.value.max_price === 0 || filters.value.max_price < filters.value.min_price) {
+        filters.value.max_price = '';
+    }
     productsStore.filterItems(filters.value);
+    if (filters.value.category === '') {
+        filters.value.category = 'All';
+    }
 }
 </script>
 
@@ -73,7 +85,7 @@ const filterItems = async () => {
             <UContainer class="flex w-full max-w-full col-span-3 gap-3 p-0! m-0! justify-between ">
                 <UForm class="w-1/2" @submit="filterItems">
                     <UFieldGroup class="flex w-full">
-                        <UInput type="search" placeholder="Search" class="flex-grow" color="primary" size="lg" v-model="filters.search" />
+                        <UInput type="search" placeholder="Search" class="grow" color="primary" size="lg" v-model="filters.search" />
                         <UButton type="submit" icon="i-fa-search" class="w-fit" color="primary" variant="subtle" size="md" />
                     </UFieldGroup>
                 </UForm>
@@ -83,15 +95,15 @@ const filterItems = async () => {
                         <UButton label="Add Product" />
                         <template #body>
                             <UContainer class="w-full m-0! p-0!">
-                                <UForm id="create-product-form" @submit="createItem">
+                                <UForm @submit="createItem" class="flex flex-col gap-3" id="create-product-form" >
                                     <UFormField label="Product">
                                         <UInput v-model="newItem.name" placeholder="Enter Name" class="w-full" />
                                     </UFormField>
-                                    <UFormField label="Price">
-                                        <UInput v-model="newItem.price" type="number" placeholder="Enter Price" class="w-full" />
-                                    </UFormField>
                                     <UFormField label="Category">
                                         <USelectMenu v-model="newItem.category" :items="categoryOptions" placeholder="Select Category" class="w-full" />
+                                    </UFormField>
+                                    <UFormField label="Price">
+                                        <UInput v-model="newItem.price" type="number" placeholder="Enter Price" class="w-full" />
                                     </UFormField>
                                 </UForm>
                             </UContainer>
@@ -108,6 +120,32 @@ const filterItems = async () => {
                         <USelectMenu placeholder="Sort by" :items="orderingOptions" @change="sortItems" v-model="ordering" arrow
                             variant="soft" color="primary" size="md" class="w-fit" :ui="{ content: 'min-w-fit' }" />
                     </UForm>
+                    <USlideover title="Filters">
+                        <UButton icon="i-fa-filter" class="shrink"/>
+
+                        <template #body>
+                            <div class="flex h-full w-full">
+                                <UForm class='flex flex-col gap-3 w-full' id="filter-products-form" @submit="filterItems" >
+                                    <UFormField label="Category" class="w-full">
+                                        <USelectMenu placeholder="Select Category" arrow :items="categoryOptions" v-model="filters.category" class="w-full" :ui="{ content: 'min-w-fit' }" />
+                                    </UFormField>
+                                    <UContainer class="flex flex-row m-0! p-0! gap-3">
+                                        <UFormField label="Min Price" class="w-1/2">
+                                            <UInputNumber placeholder="Min Price" v-model="filters.min_price" min="0" class="w-full" />
+                                        </UFormField>
+                                        <UFormField label="Max Price" class="w-1/2">
+                                            <UInputNumber placeholder="Max Price" v-model="filters.max_price" min="0" class="w-full" />
+                                        </UFormField>
+                                    </UContainer>
+                                </UForm>
+                            </div>
+                        </template>
+                        <template #footer>
+                            <div class="flex w-full justify-end">
+                                <UButton type="submit" label="Apply" size="lg" class="shrink" form="filter-products-form" />
+                            </div>
+                        </template>
+                    </USlideover>
                 </UContainer>
             </UContainer>
         </UPageHeader>
@@ -129,8 +167,9 @@ const filterItems = async () => {
                     <template #footer>
                         <UContainer class="w-full m-0! p-0! flex justify-between items-center">
                             <h5 class="text-muted">${{ product.price }}</h5>
-                            <UContainer class="flex flex-row col-span-1 gap-3 p-0! m-0! justify-end">                                <UModal title="Edit Product">
-                                    <UButton  icon="i-fa-edit" color="primary" class="flex-shrink-0 place-items-center"  />
+                            <UContainer class="flex flex-row col-span-1 gap-3 p-0! m-0! justify-end">              
+                                <UModal title="Edit Product">
+                                    <UButton  icon="i-fa-edit" color="primary" class="shrink place-items-center"  />
                                     <template #body>
                                         <UForm id="create-product-form"
                                             @submit="updateItem(newValues={
@@ -158,7 +197,7 @@ const filterItems = async () => {
                                 </UModal>
 
                                 <UModal title="Delete Product">
-                                    <UButton icon="i-fa-trash" color="error" class="flex-shrink-0 place-items-center" />
+                                    <UButton icon="i-fa-trash" color="error" class="shrink place-items-center" />
                                     <template #body>
                                         <UForm id="delete-product-form" @submit="deleteItem(product.id)">
                                             <h6>Are you sure you want to delete <strong>"{{ product.name }}"</strong>?</h6>
