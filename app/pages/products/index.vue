@@ -15,12 +15,12 @@ const { getItems: categories } = storeToRefs(categoryStore);
 
 const categoryOptions = computed(() => {
     const categoriesNames = categories.value.map(category => category.name);
-
-    return ['All', ...categoriesNames];
+    return [[categoriesNames], ['All', ...categoriesNames]];
 });
 
 const newItem = ref({
     name: '',
+    barcode: '',
     price: 0,
     category: '',
     category_id: null,
@@ -34,6 +34,7 @@ const createItem = async () => {
     await productsStore.createItem(newItem.value);
     newItem.value = {
         name: '',
+        barcode: '',
         price: 0,
         category: '',
         category_id: null,
@@ -73,9 +74,6 @@ const filterItems = async () => {
         filters.value.max_price = '';
     }
     productsStore.filterItems(filters.value);
-    if (filters.value.category === '') {
-        filters.value.category = 'All';
-    }
 }
 </script>
 
@@ -97,13 +95,16 @@ const filterItems = async () => {
                             <UContainer class="w-full m-0! p-0!">
                                 <UForm @submit="createItem" class="flex flex-col gap-3" id="create-product-form" >
                                     <UFormField label="Product">
-                                        <UInput v-model="newItem.name" placeholder="Enter Name" class="w-full" />
+                                        <UInput v-model="newItem.name" placeholder="Enter Name" class="w-full" required />
+                                    </UFormField>
+                                    <UFormField label="Barcode">
+                                        <UInput v-model="newItem.barcode" placeholder="Enter Barcode" class="w-full" required />
                                     </UFormField>
                                     <UFormField label="Category">
-                                        <USelectMenu v-model="newItem.category" :items="categoryOptions" placeholder="Select Category" class="w-full" />
+                                        <USelectMenu v-model="newItem.category" :items="categoryOptions[0]" placeholder="Select Category" class="w-full" required />
                                     </UFormField>
                                     <UFormField label="Price">
-                                        <UInput v-model="newItem.price" type="number" placeholder="Enter Price" class="w-full" />
+                                        <UInput v-model="newItem.price" type="number" placeholder="Enter Price" class="w-full" required />
                                     </UFormField>
                                 </UForm>
                             </UContainer>
@@ -127,7 +128,7 @@ const filterItems = async () => {
                             <div class="flex h-full w-full">
                                 <UForm class='flex flex-col gap-3 w-full' id="filter-products-form" @submit="filterItems" >
                                     <UFormField label="Category" class="w-full">
-                                        <USelectMenu placeholder="Select Category" arrow :items="categoryOptions" v-model="filters.category" class="w-full" :ui="{ content: 'min-w-fit' }" />
+                                        <USelectMenu placeholder="Select Category" arrow :items="categoryOptions[1]" v-model="filters.category" class="w-full" :ui="{ content: 'min-w-fit' }" />
                                     </UFormField>
                                     <UContainer class="flex flex-row m-0! p-0! gap-3">
                                         <UFormField label="Min Price" class="w-1/2">
@@ -173,17 +174,20 @@ const filterItems = async () => {
                                     <template #body>
                                         <UForm id="create-product-form"
                                             @submit="updateItem(newValues={
-                                                id: product.id, name: product.name, category: product.category, price: product.price
+                                                id: product.id, name: product.name, barcode: product.barcode, category: product.category, price: product.price
                                             })
                                         ">
                                             <UFormField label="Product">
-                                                <UInput v-model="product.name" placeholder="Enter Name" class="w-full" />
+                                                <UInput v-model="product.name" placeholder="Enter Name" class="w-full" required />
                                             </UFormField>
-                                            <UFormField label="Price">
-                                                <UInput v-model="product.price" type="number" placeholder="Enter Price" class="w-full" />
+                                            <UFormField label="Barcode">
+                                                <UInput v-model="product.barcode" placeholder="Enter Barcode" class="w-full" required />
                                             </UFormField>
                                             <UFormField label="Category">
-                                                <USelectMenu v-model="product.category" :items="categoryOptions" placeholder="Select Category" class="w-full" />
+                                                <USelectMenu v-model="product.category" :items="categoryOptions[0]" placeholder="Select Category" class="w-full" required />
+                                            </UFormField>
+                                            <UFormField label="Price">
+                                                <UInput v-model="product.price" type="number" placeholder="Enter Price" class="w-full" required />
                                             </UFormField>
                                         </UForm>
                                     </template>
