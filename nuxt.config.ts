@@ -9,13 +9,18 @@ export default defineNuxtConfig({
   ],
   css: [
     '~/assets/css/main.css', 
-    '~/assets/css/buttons.css'
+    // '~/assets/css/buttons.css'
   ],
   icon: {
     customCollections: [{
       prefix: 'assets',
       dir: './app/assets/icons'
     }]
+  },
+  ui: {
+    toast: {
+      position: 'top-right'
+    }
   },
   imports: {
     dirs: ['stores']

@@ -87,7 +87,7 @@ const sorting = ref([
                     :data="RevenueData" :categories="RevenueCategories" :y-axis="['desktop']" y-label="Amount"
                     x-label="Month" :hide-legend="false" :legend-position="LegendPosition.Top" /> -->
                 <UTable :data="tableData" v-model:sorting="sorting" sticky="true"
-                    class="bg-elevated/50 ring ring-default rounded col-span-1" />
+                    class="bg-elevated/50 ring ring-default rounded col-span-3" />
             </UPageGrid>
         </UPageBody>
     </UPage>

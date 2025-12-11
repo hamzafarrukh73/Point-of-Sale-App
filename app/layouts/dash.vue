@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from '@nuxt/ui'
 
+const authStore = useAuthStore();
+const { getUser: user } = storeToRefs(authStore);
+
 const items = computed<NavigationMenuItem[]>(() => [
     { label: 'Dashboard', to: '/dashboard', icon: 'i-fa-home' },
-    { label: 'Categories', to: '/categories', icon: 'i-fa-folder-open' },
+    { label: 'Categories', to: '/categories', icon: 'i-fa-folder' },
     { label: 'Products', to: '/products', icon: 'i-fa-folder-open' },
     { label: 'Inventory', to: '/inventory', icon: 'i-fa-cubes' },
     { label: 'Checkout', to: '/checkout', icon: 'i-fa-shopping-cart' },
-    { label: 'History', to: '/history', icon: 'i-fa-history' },
-    { label: 'Settings', to: '/dashboard', icon: 'i-fa-cog' },
+    { label: 'Sales Log', to: '/sales', icon: 'i-fa-history' },
+    { label: 'Settings', to: 'http://localhost:8000/admin/', icon: 'i-fa-cog' },
 ])
 </script>
 
@@ -20,7 +23,10 @@ const items = computed<NavigationMenuItem[]>(() => [
                 <h3 v-else="collapsed" class="font-bold">PS</h3>
             </template>
             <template #default="{ collapsed }">
-                <UNavigationMenu :collapsed="collapsed" :items="items" orientation="vertical" />
+                <UNavigationMenu :collapsed="collapsed" :items="items" orientation="vertical" tooltip popover />
+            </template>
+            <template #footer="{ collapsed }">
+                <UButton :label="user.username" />                
             </template>
         </UDashboardSidebar>
 
@@ -45,7 +51,6 @@ const items = computed<NavigationMenuItem[]>(() => [
                         <UNavigationMenu :items="items" orientation="vertical" variant="pill" />
                     </template>
                 </UDashboardNavbar>
-
             </template>
 
             <template #body>

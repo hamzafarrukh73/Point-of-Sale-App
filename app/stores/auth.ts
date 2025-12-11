@@ -2,24 +2,30 @@ const toast = useToast();
 
 export const useAuthStore = defineStore('authStore', {
     state: () => ({
-        username: 'Test Name',
-        role: 'Tester',
-        permissions: {
-            dashboard: true,
-            products: true,
-            inventory: true,
-            checkout: true,
-            history: true,
-            admin: true
+        token: localStorage.getItem('authToken') || '',
+        url: 'http://localhost:8000',
+        api: '/api/auth/login/',
+        user: {
+            username: localStorage.getItem('username') || 'Guest',
+            role: 'Tester',
+            permissions: {
+                dashboard: true,
+                products: true,
+                inventory: true,
+                checkout: true,
+                history: true,
+                admin: true
+            }
         }
     }),
     getters: {
-    
+        getUser: (state) => state.user,
+        isAuthenticated: (state) => !!state.token
     },
     actions: {
         async login(name: string, password: string, navigate: boolean, navigatePath="/dashboard" as string) {     
             try {
-                const response = await $fetch('http://127.0.0.1:8000/api/auth/login/', {
+                const response = await $fetch(`${this.url}${this.api}`, {
                     method: 'POST',
                     body: {
                         username: name,
@@ -30,13 +36,17 @@ export const useAuthStore = defineStore('authStore', {
                 // This block runs only if the request is successful (status code 2xx)
                 if (response) {
                     localStorage.setItem('authToken', response.token);
-                }
-                if (navigate) {
-                    toast.add({
-                        title: 'Logging in...',
-                        color: 'info'
-                    });
-                    navigateTo({ path: navigatePath });
+                    localStorage.setItem('username', name);
+                    this.token = response.token;
+                    this.user.username = name;
+                    if (navigate) {
+                        toast.add({
+                            title: 'Logging in...',
+                            color: 'info',
+                            duration: 5000
+                        });
+                        navigateTo({ path: navigatePath });
+                    }
                 }
             } 
             catch (error) {
@@ -45,6 +55,14 @@ export const useAuthStore = defineStore('authStore', {
                     color: 'error'
                 });
             }
+        },
+
+        logout() {
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('username');
+            this.token = '';
+            this.user.username = 'Guest';
+            navigateTo({ path: '/login' });
         }
     }
 });

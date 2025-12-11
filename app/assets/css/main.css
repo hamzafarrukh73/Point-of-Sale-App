@@ -1,13 +1,13 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
-@theme {
-    /* --*: initial; */
-    /* --color-*: initial; */
-    /* --text-*: initial; */
+/* @theme {
+    --*: initial;
+    --color-*: initial;
+    --text-*: initial;
 
-    /* --spacing: 0.25rem; */
-}
+    --spacing: 0.25rem;
+} */
 
 :root {
     /* --ui-bg: var(--color-white);
@@ -25,8 +25,8 @@
     overflow: hidden;
 }
 
-.dark {
-    /* --ui-bg: var(--color-black);
+/* .dark {
+    --ui-bg: var(--color-black);
 
     --ui-primary: var(--ui-color-primary-600);
     --ui-secondary: var(--ui-color-secondary-500);
@@ -34,15 +34,13 @@
     --ui-success: var(--ui-color-success-400);
     --ui-info: var(--ui-color-info-400);
     --ui-warning: var(--ui-color-warning-400);
-    --ui-error: var(--ui-color-error-400); */
-}
+    --ui-error: var(--ui-color-error-400);
+} */
 
-body {
-
-
-    /* font-family: var(--font-family-sans-serif); */
-    /* @apply antialiased text-default bg-black scheme-dark dark:scheme-light; */
-}
+/* body {
+    font-family: var(--font-family-sans-serif);
+    @apply antialiased text-default bg-black scheme-dark dark:scheme-light;
+} */
 
 /* #__nuxt {
     display: flex;
@@ -105,12 +103,3 @@ img {
 ::-webkit-scrollbar-thumb {
     background-color: var(--color-neutral-800);
 }
-
-/* @media (max-width: 900px)  {
-    .layout {
-        grid-template-columns: 100% !important;
-        grid-template-areas: 
-            "topbar"
-            "page-content" !important;
-    }
-} */
