@@ -1,28 +1,39 @@
 {
-  "name": "nuxt-app",
-  "type": "module",
+  "name": "frontend",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
-    "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "prepare": "husky"
   },
   "dependencies": {
+    "@iconify-json/lucide": "^1.2.74",
+    "@iconify-json/simple-icons": "^1.2.59",
+    "@nuxt/hints": "1.0.0-alpha.3",
+    "@nuxt/image": "2.0.0",
     "@nuxt/ui": "^4.2.1",
     "@pinia/nuxt": "^0.11.3",
-    "nuxt": "^4.2.1",
-    "nuxt-charts": "^1.0.2",
-    "pinia": "^3.0.4",
-    "vue": "^3.5.25",
-    "vue-router": "^4.6.3",
-    "zod": "^4.1.13"
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "husky": "^9.1.7",
+    "nuxt": "^4.2.2",
+    "prettier": "^3.7.4"
   },
   "devDependencies": {
+    "@nuxt/eslint": "^1.10.0",
     "@tailwindcss/postcss": "^4.1.17",
-    "autoprefixer": "^10.4.22",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.17"
-  }
+    "eslint": "^9.39.1",
+    "lint-staged": "^16.2.7",
+    "tailwindcss": "^4.1.17",
+    "typescript": "^5.9.3",
+    "vue-tsc": "^3.1.5"
+  },
+  "packageManager": "pnpm@10.23.0"
 }

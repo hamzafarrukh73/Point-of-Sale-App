@@ -1,12 +1,11 @@
 <script>
 definePageMeta({
-    layout: 'dash'
+  layout: 'dash'
 })
-
 </script>
 
 <template>
-    <UPage>
-        <UPageHeader title="route" />
-    </UPage>
+  <UPage>
+    <UPageHeader title="route" />
+  </UPage>
 </template>

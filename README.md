@@ -14,19 +14,20 @@ A modern Point of Sale (POS) system frontend built with responsive web technolog
 
 ### Prerequisites
 
-- Node.js (v14 or higher)
-- npm or yarn package manager
+- Node.js (v22 or higher)
+- pnpm package manager
 
 ### Installation
 
 1. Clone the repository
 2. Install dependencies:
-    ```bash
-    npm install
-    ```
+
+   ```bash
+   pnpm install
+   ```
 
 3. Start the development server:
-    ```bash
-    npm start
-    ```
+   ```bash
+   pnpm run dev
+   ```
 4. Open your browser and navigate to `http://localhost:3000`

@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "@nuxt/ui";
+@import 'tailwindcss';
+@import '@nuxt/ui';
 
 /* @theme {
     --*: initial;
@@ -10,7 +10,7 @@
 } */
 
 :root {
-    /* --ui-bg: var(--color-white);
+  /* --ui-bg: var(--color-white);
     
     --ui-primary: var(--ui-color-primary-600);
     --ui-secondary: var(--ui-color-secondary-400);
@@ -20,9 +20,9 @@
     --ui-warning: var(--ui-color-warning-500);
     --ui-error: var(--ui-color-error); */
 
-    --ui-header-height: 10vh;
-    font-size: clamp(0.75rem, 0.5rem + 0.5vw, 1.5rem);
-    overflow: hidden;
+  --ui-header-height: 10vh;
+  font-size: clamp(0.75rem, 0.5rem + 0.5vw, 1.5rem);
+  overflow: hidden;
 }
 
 /* .dark {
@@ -55,51 +55,51 @@
 } */
 
 h1 {
-    @apply text-5xl;
+  @apply text-5xl;
 }
 
 h2 {
-    @apply text-4xl;
+  @apply text-4xl;
 }
 
 h3 {
-    @apply text-3xl;
+  @apply text-3xl;
 }
 
 h4 {
-    @apply text-2xl;
+  @apply text-2xl;
 }
 
 h5 {
-    @apply text-xl;
+  @apply text-xl;
 }
 
 h6 {
-    @apply text-lg;
+  @apply text-lg;
 }
 
 p,
 label,
 span {
-    @apply text-base;
+  @apply text-base;
 }
 
 img {
-    max-width: 100%;
-    max-height: 100%;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 ::-webkit-scrollbar {
-    width: 0.5rem;
-    height: 0.5rem;
-    background-color: transparent;
-    z-index: 100;
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: transparent;
+  z-index: 100;
 }
 
 ::-webkit-scrollbar-track {
-    background-color: var(--color-neutral-500);
+  background-color: var(--color-neutral-500);
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: var(--color-neutral-800);
+  background-color: var(--color-neutral-800);
 }
